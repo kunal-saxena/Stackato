@@ -14,6 +14,8 @@ fileHCE=" "
 hsm_url="hsm_url"
 
 getvariables(){
+HCPCLIName=`grep HCPCLIName stackato.conf | cut -d"|" -f2`	
+HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
 fileHCPCheck=`grep fileHCPCheck stackato.conf | cut -d"|" -f2`
 fileHCP=`grep fileHCPCheck stackato.conf | cut -d"|" -f2 | sed 's/+/%2B/g'`
 linkHCP=`grep linkHCP stackato.conf | cut -d"|" -f2`
@@ -51,6 +53,17 @@ then
 else
         wget $linkHCP
         mv hcp-bootstrap* ../
+fi
+
+sleep 2
+
+echo "Downloading HCP CLI "
+if [ -f "/home/ubuntu/$HCPCLIName" ]
+then
+        echo "File $HCPCLIName exist "
+else
+        wget $HCPCLI
+        mv hcp-* ../
 fi
 
 sleep 2
