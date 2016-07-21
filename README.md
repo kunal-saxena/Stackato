@@ -11,8 +11,10 @@ Stackato installation script
 
 ##########################################################################################
 ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
-#############################################
-      Welcome to HCP install
+
+     #############################################  
+      Welcome to Stackato install install
+     #############################################
       Select Option:
         1. Install HCP - scratch    
         2. Install HCP
@@ -40,6 +42,7 @@ ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
         ...
         ...
         
+
 
 ##########################################################################################
 
