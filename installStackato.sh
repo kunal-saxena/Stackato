@@ -74,7 +74,7 @@ echo "-------------------------"
 cd ..
 sudo dpkg -i $fileHCPCheck
 
-bootstrap install bootstrap.properties &
+bootstrap install ~/bootstrap.properties &
 }
 
 installHSM(){
