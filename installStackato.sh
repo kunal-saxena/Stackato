@@ -50,6 +50,7 @@ then
         echo "File $fileHCPCheck exist "
 else
         wget $linkHCP
+        mv hcp-bootstrap* ../
 fi
 
 sleep 2
@@ -61,6 +62,7 @@ then
         echo "File $fileHSM exist "
 else
         wget $linkHSM
+        mv hsm* ../
 fi
 echo " "
 echo "Download of HCP and HSM is compelted. "
