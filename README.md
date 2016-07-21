@@ -1,17 +1,19 @@
 # Stackato
 Stackato installation script
 
-1. Create Ne VM
-2. Run Ccmmands: 
-    sudo apt-get install git
-    git clone https://github.com/kunal-saxena/Stackato.git
-    cd Stackato
-    chmod 700 installStackato.sh
-    ./installStackato.sh
+##################################################
 
-##########################################################################################
 ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
 
+     1. Create New VM
+     2. Run Commands: 
+         sudo apt-get install git
+         git clone https://github.com/kunal-saxena/Stackato.git
+         cd Stackato
+         chmod 700 installStackato.sh
+         #Update Stackato.config file
+         ./installStackato.sh
+        
      #############################################  
       Welcome to Stackato install install
      #############################################
