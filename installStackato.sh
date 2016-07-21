@@ -169,7 +169,7 @@ createbootstrapFile
 main(){
 getvariables
 echo "#############################################"
-echo "      Welcome to HCP install                 "
+echo "      Welcome to Stackato install            "
 echo "#############################################"
 
 echo ""
