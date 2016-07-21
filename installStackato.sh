@@ -17,10 +17,10 @@ getvariables(){
 fileHCPCheck=`grep fileHCPCheck stackato.conf | cut -d"|" -f2`
 fileHCP=`grep fileHCPCheck stackato.conf | cut -d"|" -f2 | sed 's/+/%2B/g'`
 linkHCP=`grep linkHCP stackato.conf | cut -d"|" -f2`
-linkHCP="$linkHCP/$fileHCP"
+linkHCP="$linkHCP$fileHCP"
 fileHSM=`grep fileHSM stackato.conf | cut -d"|" -f2`
 linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
-linkHSM="$linkHSM/$fileHSM"
+linkHSM="$linkHSM$fileHSM"
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 }
 
