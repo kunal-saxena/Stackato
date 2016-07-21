@@ -9,7 +9,7 @@ Stackato installation script
     chmod 700 installStackato.sh
     ./installStackato.sh
 
-
+##########################################################################################
 ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
 #############################################
       Welcome to HCP install
@@ -40,4 +40,6 @@ Please copy following files before proceeding ....
 Press enter when done ....
 
 
+
+##########################################################################################
 
