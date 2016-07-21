@@ -71,12 +71,14 @@ echo "Download of HCP and HSM is compelted. "
 installHCP(){
 echo "Installation of HCP .... " 
 echo "-------------------------"
+cd ..
 sudo dpkg -i $fileHCPCheck
 
 bootstrap install bootstrap.properties &
 }
 
 installHSM(){
+cd ..
 gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > fileHSM_1
 fileHSM_tar=`cat fileHSM_1`
