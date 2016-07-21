@@ -29,7 +29,7 @@ sudo apt-get install genisoimage
 sudo apt-get install awscli
 
 echo " "
-echo "=======================================================================")
+echo "======================================================================="
 echo "Please copy following files before proceeding ...."
 echo "  1. File Public Key (pem file) "
 echo "  2. File bootstrap.properties " 
@@ -161,7 +161,7 @@ createbootstrapFile
 
 
 main(){
-getvariables(){
+getvariables
 echo "#############################################"
 echo "      Welcome to HCP install                 "
 echo "#############################################"
