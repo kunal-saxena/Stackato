@@ -1,0 +1,2 @@
+# Stackato
+Stackato installation script
