@@ -133,6 +133,7 @@ echo " "
 echo "Press enter when done ...." 
 read abc
 
+cd ..
 ./hsm create-instance hpe-catalog.hpe.hce -i ~/instance_hce.json
 }
 
