@@ -5,6 +5,7 @@
 ##Date : 17 Jul 2016      #
 ###########################
 
+HCPCLI=" "
 fileHCPCheck=" "
 fileHCP=" "
 linkHCP=" "
@@ -96,6 +97,11 @@ gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > fileHSM_1
 fileHSM_tar=`cat fileHSM_1`
 tar -xvf $fileHSM_tar
+
+gunzip $HCPCLI
+echo $HCPCLI | cut -d"."  -f 1,2,3,4 > fileHSM_2
+fileHCP_tar=`cat fileHSM_2`
+tar -xvf $fileHCP_tar
 
 hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
