@@ -7,6 +7,7 @@ ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
 
      1. Create New VM
      2. Run Commands: 
+         sudo apt-get update
          sudo apt-get install git
          git clone https://github.com/kunal-saxena/Stackato.git
          cd Stackato
