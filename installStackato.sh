@@ -111,7 +111,8 @@ tar -xvf $fileHSM_tar
 
 hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
-
+echo "Waiting for 10 sec before attaching end-point"
+sleep 10
 ./hsm api $hsm_url
 ./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin
 
