@@ -89,7 +89,10 @@ cd ..
 sudo dpkg -i $fileHCPCheck
 
 bootstrap install ~/bootstrap.properties &
+}
 
+installHSM(){
+cd ..
 gunzip $HCPCLI
 echo $HCPCLI | cut -d"."  -f 1,2,3,4 > fileHSM_2
 fileHCP_tar=`cat fileHSM_2`
@@ -101,10 +104,6 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-}
-
-installHSM(){
-cd ..
 gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > fileHSM_1
 fileHSM_tar=`cat fileHSM_1`
