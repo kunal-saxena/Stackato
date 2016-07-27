@@ -162,7 +162,6 @@ echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
-./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
 ./hcp update-user sax -r=admin
 ./hcp update-user sax -r=publisher
 ./hsm login --skip-ssl-validation -u sax -p sax
