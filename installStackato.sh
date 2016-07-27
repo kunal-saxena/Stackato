@@ -141,6 +141,15 @@ echo "Press enter when done ...."
 read abc
 
 cd ..
+hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+echo "HCP url: hcp_url  "
+
+./hcp api $hcp_url
+./hcp login admin@cnap.local -p cnapadmin
+./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
+./hcp update-user sax -r=admin
+./hcp update-user sax -r=publisher
+./hsm login --skip-ssl-validation -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hce -i ~/instance_hce.json
 }
 
