@@ -260,7 +260,8 @@ if [ -n $input ]; then
         fi
         if [ "$input" = "6" ]; then
                 installHCE
-        fi        if [ "$input" = "7" ]; then
+        fi        
+        if [ "$input" = "7" ]; then
                 installHCF
         fi
         if [ "$input" = "8" ]; then
