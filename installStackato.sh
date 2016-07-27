@@ -151,8 +151,8 @@ installHCF(){
 echo "Installation of HCF .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer instance_hce.json file in jumpbox"
-echo "Transfer HCE from windows"
+echo "Transfer hcf_instance.json file in jumpbox"
+echo "Transfer hcf_sdl.json file in jumpbox"
 echo "Press enter when done ...." 
 read abc
 
