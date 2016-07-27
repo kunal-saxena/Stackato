@@ -131,12 +131,6 @@ echo "-------------------------"
 echo " "
 echo "Transfer instance_hce.json file in jumpbox"
 echo "Transfer HCE from windows"
-echo "|    Login to each node VM separatly and  run folloiwing commands:"
-echo "|    Commands:"
-echo "|        sudo su"
-echo "|        docker login"
-echo "|        Run Command: for (( i=1; i<=1000 ;i++ )) ; do sleep 5 ;echo \"$i keeping awake ....\" ;done"
-echo " " 
 echo "Press enter when done ...." 
 read abc
 
@@ -151,6 +145,28 @@ echo "HCP url: hcp_url  "
 ./hcp update-user sax -r=publisher
 ./hsm login --skip-ssl-validation -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hce -i ~/instance_hce.json
+}
+
+installHCF(){
+echo "Installation of HCF .... " 
+echo "-------------------------"
+echo " "
+echo "Transfer instance_hce.json file in jumpbox"
+echo "Transfer HCE from windows"
+echo "Press enter when done ...." 
+read abc
+
+cd ..
+hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+echo "HCP url: hcp_url  "
+
+./hcp api $hcp_url
+./hcp login admin@cnap.local -p cnapadmin
+./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
+./hcp update-user sax -r=admin
+./hcp update-user sax -r=publisher
+./hsm login --skip-ssl-validation -u sax -p sax
+./hsm create-instance hpe-catalog.hpe.hcf -i ~/hcf_instance.json
 }
 
 attachHCE(){
@@ -216,7 +232,8 @@ echo "    3. Create Key and Property file  "
 echo "    4. Download HCP, HSM  "
 echo "    5. Install HSM "
 echo "    6. Install HCE "
-echo "    7. Attach HCE endpoint"
+echo "    7. Install HCF "
+echo "    8. Attach HCE endpoint"
 
 echo -n "    9. Exit   : (1/2/3) : "
 
@@ -243,8 +260,10 @@ if [ -n $input ]; then
         fi
         if [ "$input" = "6" ]; then
                 installHCE
+        fi        if [ "$input" = "7" ]; then
+                installHCF
         fi
-        if [ "$input" = "7" ]; then
+        if [ "$input" = "8" ]; then
                 attachHCE
         fi
 
