@@ -274,7 +274,7 @@ echo "    5. Install HSM "
 echo "    6. Install HCE "
 echo "    7. Install HCF "
 echo "    8. Attach HCE endpoint"
-
+echo "    9. Get Nodes IP"
 echo -n "    E. Exit   : (1/2 or E) : "
 
 read input
