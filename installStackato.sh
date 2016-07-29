@@ -27,12 +27,19 @@ linkHSM="$linkHSM$fileHSM"
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 }
 
+create-setupFile(){
+touch setupFile
+echo "#./hce api --skip-ssl-validation url" >> setupFile	
+echo "#./hce login UserPass" >> setupFile	
+
+mv setupFile ~/setupFile
+}
 setup(){
 sudo apt-get update
 sudo apt-get install jq curl wget
 sudo apt-get install genisoimage
 sudo apt-get install awscli
-
+setupFile
 echo " "
 echo "======================================================================="
 echo "Please copy following files before proceeding ...."
@@ -86,6 +93,7 @@ installHCP(){
 echo "Installation of HCP .... " 
 echo "-------------------------"
 cd ..
+
 sudo dpkg -i $fileHCPCheck
 
 bootstrap install ~/bootstrap.properties &
@@ -99,9 +107,10 @@ fileHCP_tar=`cat fileHSM_2`
 tar -xvf $fileHCP_tar
 
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
-echo "HCP url: hcp_url  "
-
+echo "HCP url: $hcp_url  "
+echo "./hcp api $hcp_url" >> setupFile
 ./hcp api $hcp_url
+echo "./hcp login admin@cnap.local -p cnapadmin"
 ./hcp login admin@cnap.local -p cnapadmin
 
 gunzip $fileHSM
@@ -115,7 +124,8 @@ echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 ./hsm api $hsm_url
 ./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin
-
+echo "./hsm api $hsm_url" >> setupFile
+echo "./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin" >> setupFile
 sleep 5
 ./hsm update
 ./hsm version
@@ -216,6 +226,38 @@ createPEM
 createbootstrapFile
 }
 
+getNodes(){
+mkdir -p ~/LOGs
+aws ec2 describe-instances --filters "Name=key-name,Values=AWS-Kunal" > ~/LOGs/instances
+rowF=`wc -l ~/LOGs/instances | cut -d" " -f1`
+grep -n "   Instances     "  ~/LOGs/instances | cut -d":" -f1 > ~/LOGs/row_list
+rowCount=`wc -l ~/LOGs/row_list | cut -d" " -f1`
+
+cnt=0
+First=""
+cat ~/LOGs/row_list | while read line
+do
+   ((cnt++))
+   First=$line
+   if [ "$Last" !=  "" ]
+   then
+     Firstp="$Last","$First""p"
+     sed -n $Firstp ~/LOGs/instances > ~/LOGs/Partial-$cnt
+   fi
+   if [ $cnt == $rowCount ]
+   then
+       rowFp="$First","$rowF""p"
+       ((cnt++))
+       sed -n $rowFp ~/LOGs/instances > ~/LOGs/Partial-$cnt
+   fi
+   Last=$First
+done
+
+grep node- ~/LOGs/Partial-* | cut -d":" -f1 | while read line; do grep PrivateIpAddress $line | tail -1 | awk '{print $4}' ; done > node_ip
+cat node_ip
+}
+	
+}
 
 main(){
 getvariables
@@ -234,7 +276,7 @@ echo "    6. Install HCE "
 echo "    7. Install HCF "
 echo "    8. Attach HCE endpoint"
 
-echo -n "    9. Exit   : (1/2/3) : "
+echo -n "    E. Exit   : (1/2 or E) : "
 
 read input
 if [ -n $input ]; then
@@ -266,8 +308,10 @@ if [ -n $input ]; then
         if [ "$input" = "8" ]; then
                 attachHCE
         fi
-
         if [ "$input" = "9" ]; then
+                getNodes
+        fi        
+        if [ "$input" = "E" ]; then
                 exit
         fi
 fi
