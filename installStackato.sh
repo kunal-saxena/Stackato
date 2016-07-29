@@ -227,6 +227,7 @@ createbootstrapFile
 }
 
 getNodes(){
+cd ..
 mkdir -p ~/LOGs
 aws ec2 describe-instances --filters "Name=key-name,Values=AWS-Kunal" > ~/LOGs/instances
 rowF=`wc -l ~/LOGs/instances | cut -d" " -f1`
@@ -255,8 +256,6 @@ done
 
 grep node- ~/LOGs/Partial-* | cut -d":" -f1 | while read line; do grep PrivateIpAddress $line | tail -1 | awk '{print $4}' ; done > node_ip
 cat node_ip
-}
-	
 }
 
 main(){
