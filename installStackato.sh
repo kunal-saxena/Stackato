@@ -158,7 +158,7 @@ echo "HCP url: hcp_url  "
 ./hcp update-user sax -r=admin
 ./hcp update-user sax -r=publisher
 ./hsm login --skip-ssl-validation -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hce -i ~/instance_hce.json
+./hsm create-instance hpe-catalog.hpe.hce -i ~/json_files/hce_instance.json
 }
 
 installHCF(){
@@ -179,7 +179,7 @@ echo "HCP url: hcp_url  "
 ./hcp update-user sax -r=admin
 ./hcp update-user sax -r=publisher
 ./hsm login --skip-ssl-validation -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hcf -i ~/hcf_instance.json
+./hsm create-instance hpe-catalog.hpe.hcf -i ~/json_files/hcf_instance.json
 }
 
 attachHCE(){
