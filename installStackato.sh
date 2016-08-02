@@ -144,7 +144,7 @@ echo "Installation of HCE .... "
 echo "-------------------------"
 echo " "
 echo "Transfer instance_hce.json file in jumpbox"
-echo "Transfer HCE from windows"
+echo "Transfer HCE CLI from windows Check https://github.com/hpcloud/hce-cli/releases/"
 echo "Press enter when done ...." 
 read abc
 
