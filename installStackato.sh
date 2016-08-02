@@ -29,8 +29,7 @@ fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 
 create-setupFile(){
 touch setupFile
-echo "#./hce api --skip-ssl-validation url" >> setupFile	
-echo "#./hce login UserPass" >> setupFile	
+echo "exporting etup variables"
 
 mv setupFile ~/setupFile
 }
@@ -108,9 +107,11 @@ tar -xvf $fileHCP_tar
 
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
+echo "echo \" hcp api $hcp_url \" " >> setupFile
 echo "./hcp api $hcp_url" >> setupFile
 ./hcp api $hcp_url
-echo "./hcp login admin@cnap.local -p cnapadmin"
+echo "echo \"hcp login admin@cnap.local -p cnapadmin\" " >> setupFile
+echo "./hcp login admin@cnap.local -p cnapadmin" >> setupFile
 ./hcp login admin@cnap.local -p cnapadmin
 
 gunzip $fileHSM
@@ -122,9 +123,12 @@ hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" 
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
+
 ./hsm api $hsm_url
 ./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin
+echo "echo \"hsm api $hsm_url\"  " >> setupFile
 echo "./hsm api $hsm_url" >> setupFile
+echo "echo \" hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin \" " >> setupFile
 echo "./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin" >> setupFile
 sleep 5
 ./hsm update
@@ -183,10 +187,20 @@ echo "Attaching HCE endpoint .... "
 echo "-------------------------"
 echo " "
 
-hce_instanceID=`./hsm list-instances | grep HPE | cut -d" " -f1`
-./hsm get-instance $hce_instanceID > result
+#hce_instanceID=`./hsm list-instances | grep HPE | cut -d" " -f1`
+#./hsm get-instance $hce_instanceID > result
+echo "Once HCE installed enter HCE url, under tag hce-rest in loadbalancer"
+echo "HCE url:a68e464bf53d911e6b19402d8953fa2a-1548373400.eu-west-1.elb.amazonaws.com"
+read hce_url
+echo "echo \"hce api --skip-ssl-validation $hce_url\" " >> setupFile	
+echo "./hce api --skip-ssl-validation $hce_url" >> setupFile	
+echo "enter username and password with sapce for HCE"
+echo "user pwd:"
+read UserPass
+echo "echo \"hce login $UserPass\" "  >> setupFile
+echo "./hce login $UserPass" >> setupFile	
 
-hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
+#hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
 tar -xvf $fileHCE
 cd linux
 ./hce api http://$hce_url:8080/v2
