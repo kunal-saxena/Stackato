@@ -192,8 +192,8 @@ echo " "
 echo "Once HCE installed enter HCE url, under tag hce-rest in loadbalancer"
 echo "HCE url:a68e464bf53d911e6b19402d8953fa2a-1548373400.eu-west-1.elb.amazonaws.com"
 read hce_url
-echo "echo \"hce api --skip-ssl-validation $hce_url\" " >> setupFile	
-echo "./hce api --skip-ssl-validation $hce_url" >> setupFile	
+echo "echo \"hce api --skip-ssl-validation http://$hce_url\" " >> setupFile	
+echo "./hce api --skip-ssl-validation http://$hce_url" >> setupFile	
 echo "enter username and password with sapce for HCE"
 echo "user pwd:"
 read UserPass
@@ -202,8 +202,8 @@ echo "./hce login $UserPass" >> setupFile
 
 #hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
 tar -xvf $fileHCE
-cd linux
-./hce api http://$hce_url:8080/v2
+cp linux/hce .
+./hce api http://$hce_url
 }
 
 createPEM(){
