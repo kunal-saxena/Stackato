@@ -28,7 +28,9 @@ fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 }
 
 create-setupFile(){
+cd ~
 touch setupFile
+mkdir json_files
 echo "exporting etup variables"
 
 mv setupFile ~/setupFile
@@ -82,7 +84,7 @@ then
         echo "File $fileHSM exist "
 else
         wget $linkHSM
-        mv hsm* ../
+        mv hsm* ~
 fi
 echo " "
 echo "Download of HCP and HSM is compelted. "
@@ -91,7 +93,7 @@ echo "Download of HCP and HSM is compelted. "
 installHCP(){
 echo "Installation of HCP .... " 
 echo "-------------------------"
-cd ..
+cd ~
 
 sudo dpkg -i $fileHCPCheck
 
@@ -99,7 +101,7 @@ bootstrap install ~/bootstrap.properties &
 }
 
 installHSM(){
-cd ..
+cd ~
 gunzip $HCPCLI
 echo $HCPCLI | cut -d"."  -f 1,2,3,4 > fileHSM_2
 fileHCP_tar=`cat fileHSM_2`
@@ -148,7 +150,7 @@ echo "Transfer HCE CLI from windows Check https://github.com/hpcloud/hce-cli/rel
 echo "Press enter when done ...." 
 read abc
 
-cd ..
+cd ~
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: hcp_url  "
 
@@ -170,7 +172,7 @@ echo "Transfer hcf_sdl.json file in jumpbox"
 echo "Press enter when done ...." 
 read abc
 
-cd ..
+cd ~
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: hcp_url  "
 
@@ -202,7 +204,7 @@ echo "./hce login $UserPass" >> ../setupFile
 
 #hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
 tar -xvf $fileHCE
-cp linux/hce .
+cp ~linux/hce .
 ./hce api http://$hce_url
 }
 
@@ -241,7 +243,7 @@ createbootstrapFile
 }
 
 getNodes(){
-cd ..
+cd ~
 mkdir -p ~/LOGs
 aws ec2 describe-instances --filters "Name=key-name,Values=AWS-Kunal" > ~/LOGs/instances
 rowF=`wc -l ~/LOGs/instances | cut -d" " -f1`
