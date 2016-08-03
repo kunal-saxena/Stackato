@@ -27,20 +27,19 @@ linkHSM="$linkHSM$fileHSM"
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 }
 
-create-setupFile(){
+createsetupFile(){
 cd ~
 touch setupFile
 mkdir json_files
-echo "exporting etup variables"
+echo "exporting setup variables"
 
-mv setupFile ~/setupFile
 }
 setup(){
 sudo apt-get update
 sudo apt-get install jq curl wget
 sudo apt-get install genisoimage
 sudo apt-get install awscli
-setupFile
+createsetupFile
 echo " "
 echo "======================================================================="
 echo "Please copy following files before proceeding ...."
