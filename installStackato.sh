@@ -140,6 +140,10 @@ sleep 5
 ./hsm list-instances
 ./hsm list-categories
 ./hsm list-services
+
+./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
+./hcp update-user sax -r=admin
+./hcp update-user sax -r=publisher
 }
 
 
@@ -158,9 +162,7 @@ echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
-./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
-./hcp update-user sax -r=admin
-./hcp update-user sax -r=publisher
+
 ./hsm login --skip-ssl-validation -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hce -i ~/json_files/hce_instance.json
 }
@@ -180,8 +182,7 @@ echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
-./hcp update-user sax -r=admin
-./hcp update-user sax -r=publisher
+
 ./hsm login --skip-ssl-validation -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hcf -i ~/json_files/hcf_instance.json
 }
