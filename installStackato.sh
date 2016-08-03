@@ -105,7 +105,7 @@ gunzip $HCPCLI
 echo $HCPCLI | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
-
+mv hcp-bootstrap* $fileHCP_tar tar_ball/
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
 echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
@@ -119,7 +119,7 @@ gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
-
+mv $fileHSM_tar tar_ball/
 hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
@@ -144,7 +144,7 @@ installHCE(){
 echo "Installation of HCE .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer instance_hce.json file in jumpbox"
+echo "Transfer hce_instance.json file in jumpbox under dir ~/json_files/"
 echo "Transfer HCE CLI from windows Check https://github.com/hpcloud/hce-cli/releases/"
 echo "Press enter when done ...." 
 read abc
@@ -166,7 +166,7 @@ installHCF(){
 echo "Installation of HCF .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer hcf_instance.json file in jumpbox"
+echo "Transfer hcf_instance.json file in jumpbox under dir ~/json_files/"
 echo "Transfer hcf_sdl.json file in jumpbox"
 echo "Press enter when done ...." 
 read abc
