@@ -88,7 +88,7 @@ else
         mv hsm* ~
 fi
 echo " "
-echo "Download of HCP and HSM is compelted. "
+echo "Download of HCP Bootstrap, HCP CLI and HSM is completed. "
 }
 
 installHCP(){
