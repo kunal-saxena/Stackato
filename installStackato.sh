@@ -288,6 +288,8 @@ grep PrivateIpAddress $Pmaster  |  tail -1 | awk '{print $4}' >> ~/node_ip
 echo "" >> ~/node_ip
 echo "node" >> ~/node_ip
 grep node- ~/LOGs/Partial-* | cut -d":" -f1 | while read line; do grep PrivateIpAddress $line | tail -1 | awk '{print $4}' ; done >> node_ip
+echo ""
+echo "Node Details : "
 cat node_ip
 }
 
