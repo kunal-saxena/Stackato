@@ -242,7 +242,20 @@ createbootstrapFile
 }
 
 getNodes(){
+if [ -f "/home/ubuntu/awsParam" ] 
+then
+        echo "Please transfer awsParam with values "
+        echo "awsParam is simple file with 4 values"
+        echo "  1. AWS.AccessKey "
+        echo "  2. AWS.SecretKey " 
+        echo "  3. AWS.Region " 
+        echo "  4. table "
+else
+        exit
+fi
+
 cd ~
+aws configure < awsParam
 mkdir -p ~/LOGs
 aws ec2 describe-instances --filters "Name=key-name,Values=AWS-Kunal" > ~/LOGs/instances
 rowF=`wc -l ~/LOGs/instances | cut -d" " -f1`
