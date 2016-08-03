@@ -103,22 +103,22 @@ bootstrap install ~/bootstrap.properties &
 installHSM(){
 cd ~
 gunzip $HCPCLI
-echo $HCPCLI | cut -d"."  -f 1,2,3,4 > fileHSM_2
-fileHCP_tar=`cat fileHSM_2`
+echo $HCPCLI | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
+fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
-echo "echo \" hcp api $hcp_url \" " >> setupFile
-echo "./hcp api $hcp_url" >> setupFile
+echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
+echo "./hcp api $hcp_url" >> ~/setupFile
 ./hcp api $hcp_url
-echo "echo \"hcp login admin@cnap.local -p cnapadmin\" " >> setupFile
-echo "./hcp login admin@cnap.local -p cnapadmin" >> setupFile
+echo "echo \"hcp login admin@cnap.local -p cnapadmin\" " >> ~/setupFile
+echo "./hcp login admin@cnap.local -p cnapadmin" >> ~/setupFile
 ./hcp login admin@cnap.local -p cnapadmin
 
 gunzip $fileHSM
-echo $fileHSM | cut -d"."  -f 1,2,3,4 > fileHSM_1
-fileHSM_tar=`cat fileHSM_1`
+echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
+fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
 
 hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
@@ -128,10 +128,10 @@ sleep 10
 
 ./hsm api $hsm_url
 ./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin
-echo "echo \"hsm api $hsm_url\"  " >> setupFile
-echo "./hsm api $hsm_url" >> setupFile
-echo "echo \" hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin \" " >> setupFile
-echo "./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin" >> setupFile
+echo "echo \"hsm api $hsm_url\"  " >> ~/setupFile
+echo "./hsm api $hsm_url" >> ~/setupFile
+echo "echo \" hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin \" " >> ~/setupFile
+echo "./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin" >> ~/setupFile
 sleep 5
 ./hsm update
 ./hsm version
