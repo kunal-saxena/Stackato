@@ -283,7 +283,7 @@ do
 done
 
 echo "master" > ~/node_ip
-Pmaster=grep master ~/LOGs/Partial-* | cut -d":" -f1 | tail -1 
+Pmaster=`grep master ~/LOGs/Partial-* | cut -d":" -f1 | tail -1 `
 grep PrivateIpAddress $Pmaster  |  tail -1 | awk '{print $4}' >> ~/node_ip
 echo "" >> ~/node_ip
 echo "node" >> ~/node_ip
