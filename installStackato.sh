@@ -56,7 +56,7 @@ download(){
 echo "Starting Download ....... "
 echo " "
 echo "Downloading HCP "
-if [ -f "/home/ubuntu/$fileHCPCheck" ]
+if [ -f "/home/ubuntu/files/$fileHCPCheck" ] || [ -f "/home/ubuntu/$fileHCPCheck" ]
 then
         echo "File $fileHCPCheck exist "
 else
@@ -67,7 +67,7 @@ fi
 sleep 2
 
 echo "Downloading HCP CLI "
-if [ -f "/home/ubuntu/$HCPCLIName" ]
+if [ -f "/home/ubuntu/files/$CLIName" ] || [ -f "/home/ubuntu/$CLIName" ]
 then
         echo "File $HCPCLIName exist "
 else
@@ -79,7 +79,7 @@ sleep 2
 
 echo " "
 echo "Downloading HSM "
-if [ -f "/home/ubuntu/$fileHSM" ]
+if [ -f "/home/ubuntu/files/$fileHSM" ] || [ -f "/home/ubuntu/$fileHSM" ]
 then
         echo "File $fileHSM exist "
 else
