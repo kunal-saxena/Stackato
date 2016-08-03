@@ -106,6 +106,7 @@ echo $HCPCLI | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 mv hcp-bootstrap* $fileHCP_tar tar_ball/
+mv $fileHCP_tar tar_ball/
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
 echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
