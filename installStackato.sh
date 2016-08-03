@@ -66,9 +66,10 @@ fi
 sleep 2
 
 echo "Downloading HCP CLI "
-if [ -f "/home/ubuntu/tar_ball/$CLIName" ] || [ -f "/home/ubuntu/$CLIName" ]
+hcpcli_tarname=`echo $fileHCPCheck |  | cut -d"." -f1,2,3,4`
+if [ -f "/home/ubuntu/tar_ball/$hcpcli_tarname" ] || [ -f "/home/ubuntu/$hcpcli_tarname" ]
 then
-        echo "File $HCPCLIName exist "
+        echo "File $hcpcli_tarname exist "
 else
         wget $HCPCLI
         mv hcp-* ../
@@ -78,9 +79,10 @@ sleep 2
 
 echo " "
 echo "Downloading HSM "
-if [ -f "/home/ubuntu/tar_ball/$fileHSM" ] || [ -f "/home/ubuntu/$fileHSM" ]
+hsmcli_tarname=`echo $fileHSM |  | cut -d"." -f1,2,3,4`
+if [ -f "/home/ubuntu/tar_ball/$hsmcli_tarname" ] || [ -f "/home/ubuntu/$hsmcli_tarname" ]
 then
-        echo "File $fileHSM exist "
+        echo "File $hsmcli_tarname exist "
 else
         wget $linkHSM
         mv hsm* ~
