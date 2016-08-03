@@ -30,6 +30,7 @@ fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 createsetupFile(){
 cd ~
 touch setupFile
+chmod 700 setupFile
 mkdir json_files tar_ball
 echo "exporting setup variables"
 
