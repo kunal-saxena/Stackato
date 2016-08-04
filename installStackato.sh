@@ -208,6 +208,7 @@ echo "echo \"hce login $UserPass\" "  >> ../setupFile
 echo "./hce login $UserPass" >> ../setupFile	
 
 #hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
+cd 
 tar -xvf $fileHCE
 cp ~/linux/hce ~/.
 ./hce api http://$hce_url
