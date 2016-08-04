@@ -56,7 +56,7 @@ download(){
 echo "Starting Download ....... "
 echo " "
 echo "Downloading HCP "
-if [ -f "/home/ubuntu/tar_ball/$fileHCPCheck" ] || [ -f "/home/ubuntu/$fileHCPCheck" ]
+if [ -f "/home/ubuntu/$fileHCPCheck" ]
 then
         echo "File $fileHCPCheck exist "
 else
@@ -68,7 +68,7 @@ sleep 2
 
 echo "Downloading HCP CLI "
 hcpcli_tarname=`echo $HCPCLIName | cut -d"." -f1,2,3,4`
-if [ -f "/home/ubuntu/tar_ball/$hcpcli_tarname" ] || [ -f "/home/ubuntu/$hcpcli_tarname" ]
+if [ -f "/home/ubuntu/$hcpcli_tarname" ]
 then
         echo "File $hcpcli_tarname exist "
 else
@@ -81,7 +81,7 @@ sleep 2
 echo " "
 echo "Downloading HSM "
 hsmcli_tarname=`echo $fileHSM | cut -d"." -f1,2,3,4`
-if [ -f "/home/ubuntu/tar_ball/$hsmcli_tarname" ] || [ -f "/home/ubuntu/$hsmcli_tarname" ]
+if [ -f "/home/ubuntu/$hsmcli_tarname" ]
 then
         echo "File $hsmcli_tarname exist "
 else
@@ -109,7 +109,6 @@ gunzip $HCPCLIName
 echo $HCPCLIName | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
-mv hcp-bootstrap* $fileHCP_tar tar_ball/
 
 hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
@@ -124,7 +123,6 @@ gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
-mv $fileHSM_tar tar_ball/
 hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
@@ -166,7 +164,7 @@ echo "HCP url: hcp_url  "
 ./hcp login admin@cnap.local -p cnapadmin
 
 ./hsm login --skip-ssl-validation -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hce -i ~/json_files/hce_instance.json
+./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
 installHCF(){
@@ -186,7 +184,7 @@ echo "HCP url: hcp_url  "
 ./hcp login admin@cnap.local -p cnapadmin
 
 ./hsm login --skip-ssl-validation -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hcf -i ~/json_files/hcf_instance.json
+./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
 }
 
 attachHCE(){
@@ -197,7 +195,7 @@ echo " "
 #hce_instanceID=`./hsm list-instances | grep HPE | cut -d" " -f1`
 #./hsm get-instance $hce_instanceID > result
 echo "Once HCE installed enter HCE url, under tag hce-rest in loadbalancer"
-echo "HCE url:a68e464bf53d911e6b19402d8953fa2a-1548373400.eu-west-1.elb.amazonaws.com"
+echo "HCE url e.g. a68e464bf53d911e6b19402d8953fa2a-1548373400.eu-west-1.elb.amazonaws.com:"
 read hce_url
 echo "echo \"hce api --skip-ssl-validation http://$hce_url\" " >> ../setupFile	
 echo "./hce api --skip-ssl-validation http://$hce_url" >> ../setupFile	
