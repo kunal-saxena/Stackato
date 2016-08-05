@@ -31,7 +31,7 @@ createsetupFile(){
 cd ~
 touch setupFile
 chmod 700 setupFile
-mkdir json_files tar_ball
+mkdir tar_ball
 echo "exporting setup variables"
 
 }
@@ -151,7 +151,7 @@ installHCE(){
 echo "Installation of HCE .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer hce_instance.json file in jumpbox under dir ~/json_files/"
+echo "Transfer hce_instance.json file in jumpbox "
 echo "Transfer HCE CLI from windows Check https://github.com/hpcloud/hce-cli/releases/"
 echo "Press enter when done ...." 
 read abc
@@ -171,7 +171,7 @@ installHCF(){
 echo "Installation of HCF .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer hcf_instance.json file in jumpbox under dir ~/json_files/"
+echo "Transfer hcf_instance.json file in jumpbox "
 echo "Transfer hcf_sdl.json file in jumpbox"
 echo "Press enter when done ...." 
 read abc
