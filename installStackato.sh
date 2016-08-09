@@ -108,7 +108,8 @@ echo $HCPCLIName | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 
-hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
 echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
 echo "./hcp api $hcp_url" >> ~/setupFile
@@ -121,7 +122,8 @@ gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
-hsm_url=`tail -10 bootstrap.log  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hsm_url=`tail -10 $logfileName  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
@@ -155,7 +157,8 @@ echo "Press enter when done ...."
 read abc
 
 cd ~
-hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
@@ -175,7 +178,8 @@ echo "Press enter when done ...."
 read abc
 
 cd ~
-hcp_url=`tail -10 bootstrap.log  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
