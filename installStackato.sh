@@ -56,12 +56,12 @@ download(){
 echo "Starting Download ....... "
 echo " "
 echo "Downloading HCP "
+cd ~
 if [ -f "/home/ubuntu/$fileHCPCheck" ]
 then
         echo "File $fileHCPCheck exist "
 else
         wget $linkHCP
-        mv hcp-bootstrap* ~/
 fi
 
 sleep 2
@@ -73,7 +73,6 @@ then
         echo "File $hcpcli_tarname exist "
 else
         wget $HCPCLI
-        mv hcp-* ~/
 fi
 
 sleep 2
@@ -86,7 +85,6 @@ then
         echo "File $hsmcli_tarname exist "
 else
         wget $linkHSM
-        mv hsm* ~/
 fi
 echo " "
 echo "Download of HCP Bootstrap, HCP CLI and HSM is completed. "
