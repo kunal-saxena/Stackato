@@ -15,15 +15,15 @@ fileHCE=" "
 hsm_url="hsm_url"
 
 getvariables(){
-HCPCLIName=`grep HCPCLIName stackato.conf | cut -d"|" -f2`	
 HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
-fileHCPCheck=`grep fileHCPCheck stackato.conf | cut -d"|" -f2`
-fileHCP=`grep fileHCPCheck stackato.conf | cut -d"|" -f2 | sed 's/+/%2B/g'`
+HCPCLIName=` grep HCPCLI stackato.conf | cut -d"|" -f2 | cut -d"/" -f5`
+
 linkHCP=`grep linkHCP stackato.conf | cut -d"|" -f2`
-linkHCP="$linkHCP$fileHCP"
-fileHSM=`grep fileHSM stackato.conf | cut -d"|" -f2`
+fileHCPCheck=`grep linkHCP stackato.conf | cut -d"|" -f2 | cut -d"/" -f5 | sed 's/%2B/+/g'`
+
 linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
-linkHSM="$linkHSM$fileHSM"
+fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
+
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 }
 
@@ -48,6 +48,8 @@ echo "  1. File Public Key (pem file) "
 echo "  2. File bootstrap.properties " 
 echo " " 
 echo "Press enter when done ...." 
+chmod 400 ../*.pem
+chmod 700 installStackato.sh
 read abc
 
 }
