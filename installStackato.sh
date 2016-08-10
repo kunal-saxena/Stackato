@@ -41,16 +41,6 @@ sudo apt-get install jq curl wget
 sudo apt-get install genisoimage
 sudo apt-get install awscli
 createsetupFile
-echo " "
-echo "======================================================================="
-echo "Please copy following files before proceeding ...."
-echo "  1. File Public Key (pem file) "
-echo "  2. File bootstrap.properties " 
-echo " " 
-echo "Press enter when done ...." 
-read abc
-chmod 400 ../*.pem
-chmod 700 installStackato.sh
 }
 
 download(){
@@ -95,7 +85,16 @@ installHCP(){
 echo "Installation of HCP .... " 
 echo "-------------------------"
 cd ~
-
+echo " "
+echo "======================================================================="
+echo "Please copy following files before proceeding ...."
+echo "  1. File Public Key (pem file) "
+echo "  2. File bootstrap.properties " 
+echo " " 
+echo "Press enter when done ...." 
+read abc
+chmod 400 ../*.pem
+chmod 700 installStackato.sh
 sudo dpkg -i $fileHCPCheck
 
 bootstrap install ~/bootstrap.properties &
