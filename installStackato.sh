@@ -48,10 +48,9 @@ echo "  1. File Public Key (pem file) "
 echo "  2. File bootstrap.properties " 
 echo " " 
 echo "Press enter when done ...." 
+read abc
 chmod 400 ../*.pem
 chmod 700 installStackato.sh
-read abc
-
 }
 
 download(){
