@@ -211,7 +211,8 @@ echo "./hce login $UserPass" >> ../setupFile
 cd 
 tar -xvf $fileHCE
 cp ~/linux/hce ~/.
-./hce api http://$hce_url
+./hce api --skip-ssl-validation http://$hce_url
+./hce login $UserPass
 }
 
 createPEM(){
