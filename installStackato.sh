@@ -128,12 +128,16 @@ echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 
+sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json
+cp hsm_config.json .hsm/config.json
+mv hsm_config.json ~/LOGs/
+
 ./hsm api $hsm_url
-./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin
+./hsm login -u admin@cnap.local -p cnapadmin
 echo "echo \"hsm api $hsm_url\"  " >> ~/setupFile
 echo "./hsm api $hsm_url" >> ~/setupFile
-echo "echo \" hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin \" " >> ~/setupFile
-echo "./hsm login --skip-ssl-validation -u admin@cnap.local -p cnapadmin" >> ~/setupFile
+echo "echo \" hsm login -u admin@cnap.local -p cnapadmin \" " >> ~/setupFile
+echo "./hsm login -u admin@cnap.local -p cnapadmin" >> ~/setupFile
 sleep 5
 ./hsm update
 ./hsm version
