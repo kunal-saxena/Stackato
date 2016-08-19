@@ -168,7 +168,7 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-./hsm login --skip-ssl-validation -u sax -p sax
+./hsm login -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
@@ -189,8 +189,29 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-./hsm login --skip-ssl-validation -u sax -p sax
+./hsm login -u sax -p sax
 ./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
+}
+
+installConsole(){
+echo "Installation of Console .... " 
+echo "-------------------------"
+echo " "
+echo "Transfer console_instance.json file in jumpbox "
+echo "Transfer console_sdl.json file in jumpbox"
+echo "Press enter when done ...." 
+read abc
+
+cd ~
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+echo "HCP url: hcp_url  "
+
+./hcp api $hcp_url
+./hcp login admin@cnap.local -p cnapadmin
+
+./hsm login -u sax -p sax
+./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
 }
 
 attachHCE(){
@@ -315,12 +336,12 @@ echo ""
 echo "Select Option: "
 echo "    1. Install HCP - scratch "
 echo "    2. Install HCP "
-echo "    3. Create Key and Property file  "
+echo "    3. Attach HCE endpoint"
 echo "    4. Download HCP, HSM  "
 echo "    5. Install HSM "
 echo "    6. Install HCE "
 echo "    7. Install HCF "
-echo "    8. Attach HCE endpoint"
+echo "    8. Install Console "
 echo "    9. Get Nodes IP"
 echo -n "    E. Exit   : (1/2 or E) : "
 
@@ -337,7 +358,7 @@ if [ -n $input ]; then
                 installHCP
         fi
         if [ "$input" = "3" ]; then
-                createInput
+                attachHCE
         fi
          if [ "$input" = "4" ]; then
                 download
@@ -352,7 +373,7 @@ if [ -n $input ]; then
                 installHCF
         fi
         if [ "$input" = "8" ]; then
-                attachHCE
+                installConsole
         fi
         if [ "$input" = "9" ]; then
                 getNodes
