@@ -165,13 +165,14 @@ read abc
 cd ~
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
 echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
-./hcp login admin@cnap.local -p cnapadmin
+./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
-#./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
+./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
 installHCF(){
@@ -186,13 +187,14 @@ read abc
 cd ~
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
 echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
-./hcp login admin@cnap.local -p cnapadmin
+./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
-#./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
+./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
 }
 
 installConsole(){
@@ -207,13 +209,14 @@ read abc
 cd ~
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
 echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
-./hcp login admin@cnap.local -p cnapadmin
+./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
-#./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
+./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
 }
 
 attachHCE(){
