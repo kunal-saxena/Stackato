@@ -102,6 +102,7 @@ bootstrap install ~/bootstrap.properties &
 
 installHSM(){
 cd ~
+export PATH=$PATH:/home/ubuntu
 mkdir LOGs
 gunzip $HCPCLIName
 echo $HCPCLIName | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
@@ -112,11 +113,12 @@ logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
 echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
-echo "./hcp api $hcp_url" >> ~/setupFile
-./hcp api $hcp_url
-echo "echo \"hcp login admin@cnap.local -p cnapadmin\" " >> ~/setupFile
-echo "./hcp login admin@cnap.local -p cnapadmin" >> ~/setupFile
-./hcp login admin@cnap.local -p cnapadmin
+echo "hcp api $hcp_url" >> ~/setupFile
+hcp api $hcp_url
+hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
+echo "echo \"hcp login admin -p \"$hcp_login\" " >> ~/setupFile
+echo "hcp login admin -p \"$hcp_login\"" >> ~/setupFile
+hcp login admin -p "$hcp_login"
 
 gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
@@ -132,22 +134,22 @@ sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.jso
 cp hsm_config.json .hsm/config.json
 mv hsm_config.json ~/LOGs/
 
-./hsm api $hsm_url
-./hsm login -u admin@cnap.local -p cnapadmin
+hsm api $hsm_url
+hsm login -u admin -p "$hcp_login"
 echo "echo \"hsm api $hsm_url\"  " >> ~/setupFile
-echo "./hsm api $hsm_url" >> ~/setupFile
-echo "echo \" hsm login -u admin@cnap.local -p cnapadmin \" " >> ~/setupFile
-echo "./hsm login -u admin@cnap.local -p cnapadmin" >> ~/setupFile
+echo "hsm api $hsm_url" >> ~/setupFile
+echo "echo \" hsm login -u admin -p \"$hcp_login\" " >> ~/setupFile
+echo "hsm login -u admin -p \"$hcp_login\" " >> ~/setupFile
 sleep 5
-./hsm update
-./hsm version
-./hsm list-instances
-./hsm list-categories
-./hsm list-services
+hsm update
+hsm version
+hsm list-instances
+hsm list-categories
+hsm list-services
 
-./hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
-./hcp update-user sax -r=admin
-./hcp update-user sax -r=publisher
+hcp add-user sax sax sax sax kunal.saxena@hpe.com --role=user
+hcp update-user sax -r=admin
+hcp update-user sax -r=publisher
 }
 
 
