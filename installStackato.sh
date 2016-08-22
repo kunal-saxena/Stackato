@@ -172,6 +172,8 @@ echo "HCP url: hcp_url  "
 ./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
+#wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/hce/instance.json 
+#mv instance.json hce_instance.json
 ./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
@@ -194,6 +196,8 @@ echo "HCP url: hcp_url  "
 ./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
+#wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/hcf/instance.json
+#mv instance.json hcf_instance.json
 ./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
 }
 
@@ -216,6 +220,8 @@ echo "HCP url: hcp_url  "
 ./hcp login admin -p "$hcp_login"
 
 #./hsm login -u sax -p sax
+wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/console/instance.json
+mv instance.json console_instance.json
 ./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
 }
 
