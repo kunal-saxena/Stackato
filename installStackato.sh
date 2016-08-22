@@ -168,8 +168,8 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-./hsm login -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
+#./hsm login -u sax -p sax
+#./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
 installHCF(){
@@ -189,8 +189,8 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-./hsm login -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
+#./hsm login -u sax -p sax
+#./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
 }
 
 installConsole(){
@@ -210,8 +210,8 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin@cnap.local -p cnapadmin
 
-./hsm login -u sax -p sax
-./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
+#./hsm login -u sax -p sax
+#./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
 }
 
 attachHCE(){
