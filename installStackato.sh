@@ -208,11 +208,6 @@ installConsole(){
 echo "Installation of Console .... " 
 echo "-------------------------"
 echo " "
-echo "Transfer console_instance.json file in jumpbox "
-echo "Transfer console_sdl.json file in jumpbox"
-echo "Press enter when done ...." 
-read abc
-
 cd ~
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
