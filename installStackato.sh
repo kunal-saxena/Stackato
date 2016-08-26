@@ -31,6 +31,8 @@ createsetupFile(){
 cd ~
 touch setupFile
 chmod 700 setupFile
+echo "export PATH=$PATH:/home/ubuntu" > setupFile
+echo "github,https://github.com,kunal-saxena,login" > gitdetails
 mkdir tar_ball
 echo "exporting setup variables"
 
@@ -130,9 +132,9 @@ echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 
-sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json
-cp hsm_config.json .hsm/config.json
-mv hsm_config.json ~/LOGs/
+echo "sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json "  >> ~/setupFile
+echo "cp hsm_config.json .hsm/config.json "  >> ~/setupFile
+echo "mv hsm_config.json ~/LOGs/ "  >> ~/setupFile
 
 hsm api $hsm_url
 hsm login -u admin -p "$hcp_login"
@@ -171,9 +173,6 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
 
-#./hsm login -u sax -p sax
-#wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/hce/instance.json 
-#mv instance.json hce_instance.json
 ./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
@@ -195,10 +194,7 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
 
-#./hsm login -u sax -p sax
-#wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/hcf/instance.json
-#mv instance.json hcf_instance.json
-./hsm create-instance hpe-catalog.hpe.hcf -i hcf_instance.json
+./hsm create-instance hpe-catalog.hpe.hcf 4.0.0 0.16.11-0.g60bd33d.master -i hcf_instance.json
 }
 
 installConsole(){
@@ -222,7 +218,8 @@ echo "HCP url: hcp_url  "
 #./hsm login -u sax -p sax
 wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/console/instance.json
 mv instance.json console_instance.json
-./hsm create-instance hpe-catalog.hpe.hsc -i console_instance.json
+
+./hsm create-instance hpe-catalog.hpe.hsc 4.0 0.0.307 -s < gitdetails
 }
 
 attachHCE(){
