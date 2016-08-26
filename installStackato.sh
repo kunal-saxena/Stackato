@@ -241,17 +241,19 @@ echo "HCE url e.g. a68e464bf53d911e6b19402d8953fa2a-1548373400.eu-west-1.elb.ama
 read hce_url
 echo "echo \"hce api --skip-ssl-validation http://$hce_url\" " >> ../setupFile	
 echo "./hce api --skip-ssl-validation http://$hce_url" >> ../setupFile	
-echo "enter username and password with sapce for HCE"
-echo "user pwd:"
-read UserPass
-echo "echo \"hce login $UserPass\" "  >> ../setupFile
-echo "./hce login $UserPass" >> ../setupFile	
+
+logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
+
+echo "echo \"hce login admin $hcp_login \" "  >> ../setupFile
+echo "./hce login admin $hcp_login" >> ../setupFile	
 
 #hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
 cd 
 tar -xvf $fileHCE
 ./hce api --skip-ssl-validation http://$hce_url
-./hce login $UserPass
+./hce login admin $hcp_login
 }
 
 createPEM(){
