@@ -118,8 +118,8 @@ echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
 echo "hcp api $hcp_url" >> ~/setupFile
 hcp api $hcp_url
 hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
-echo "echo \"hcp login admin -p \"$hcp_login\" " >> ~/setupFile
-echo "hcp login admin -p \"$hcp_login\"" >> ~/setupFile
+echo "echo \"hcp login admin -p \'$hcp_login\' " >> ~/setupFile
+echo "hcp login admin -p \'$hcp_login\' " >> ~/setupFile
 hcp login admin -p "$hcp_login"
 
 gunzip $fileHSM
@@ -132,16 +132,18 @@ echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 
+echo " " >> ~/setupFile
 echo "sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json "  >> ~/setupFile
 echo "cp hsm_config.json .hsm/config.json "  >> ~/setupFile
 echo "mv hsm_config.json ~/LOGs/ "  >> ~/setupFile
+echo " " >> ~/setupFile
 
 hsm api $hsm_url
 hsm login -u admin -p "$hcp_login"
 echo "echo \"hsm api $hsm_url\"  " >> ~/setupFile
 echo "hsm api $hsm_url" >> ~/setupFile
-echo "echo \" hsm login -u admin -p \"$hcp_login\" " >> ~/setupFile
-echo "hsm login -u admin -p \"$hcp_login\" " >> ~/setupFile
+echo "echo \" hsm login -u admin -p \'$hcp_login\' " >> ~/setupFile
+echo "hsm login -u admin -p \'$hcp_login\' " >> ~/setupFile
 sleep 5
 hsm update
 hsm version
