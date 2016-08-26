@@ -133,10 +133,13 @@ echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 
 echo " " >> ~/setupFile
-echo "sed 's/skip-ssl-validation": false/skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json "  >> ~/setupFile
+echo "sed 's/skip-ssl-validation\": false/skip-ssl-validation\": true/g' .hsm/config.json > hsm_config.json "  >> ~/setupFile
 echo "cp hsm_config.json .hsm/config.json "  >> ~/setupFile
 echo "mv hsm_config.json ~/LOGs/ "  >> ~/setupFile
 echo " " >> ~/setupFile
+
+sed 's/"skip-ssl-validation": false/"skip-ssl-validation": true/g' .hsm/config.json > hsm_config.json
+cp hsm_config.json .hsm/config.json
 
 hsm api $hsm_url
 hsm login -u admin -p "$hcp_login"
