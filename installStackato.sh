@@ -179,7 +179,7 @@ echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
-
+echo "hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json"
 ./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
 }
 
@@ -200,7 +200,7 @@ echo "HCP url: hcp_url  "
 
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
-
+echo "hsm create-instance hpe-catalog.hpe.hcf 4.0.0 0.16.11-0.g60bd33d.master -i hcf_instance.json"
 ./hsm create-instance hpe-catalog.hpe.hcf 4.0.0 0.16.11-0.g60bd33d.master -i hcf_instance.json
 }
 
@@ -222,10 +222,7 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
 
-#./hsm login -u sax -p sax
-wget https://helion-service-manager.s3.amazonaws.com/release/master/instance-definition/console/instance.json
-mv instance.json console_instance.json
-
+echo "hsm create-instance hpe-catalog.hpe.hsc 4.0 0.0.307 -s < gitdetails"
 ./hsm create-instance hpe-catalog.hpe.hsc 4.0 0.0.307 -s < gitdetails
 }
 
