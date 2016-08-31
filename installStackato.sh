@@ -284,7 +284,7 @@ attachHCE(){
 echo "Attaching HCE endpoint .... " 
 echo "-------------------------"
 echo " "
-
+cd 
 #hce_instanceID=`./hsm list-instances | grep HPE | cut -d" " -f1`
 #./hsm get-instance $hce_instanceID > result
 echo "Once HCE installed enter HCE url, under tag hce-rest in loadbalancer"
@@ -301,7 +301,7 @@ echo "echo \"hce login admin $hcp_login \" "  >> ../setupFile
 echo "./hce login admin $hcp_login" >> ../setupFile	
 
 #hce_url=`tail -n 6 result | grep IP | cut -d" " --complement -s -f1 | awk '{print $1}'`
-cd 
+
 tar -xvf $fileHCE
 ./hce api --skip-ssl-validation http://$hce_url
 ./hce login admin $hcp_login
