@@ -13,6 +13,11 @@ fileHSM=" "
 linkHSM=" "
 fileHCE=" "
 hsm_url="hsm_url"
+domainname=""
+dockuser=""
+dockpass=""
+gituser=""
+gitpass=""
 
 getvariables(){
 HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
@@ -25,6 +30,13 @@ linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
 fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
 
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
+
+domainname=`grep domain stackato.conf | cut -d"|" -f2`
+dockuser=`grep dockeruser stackato.conf | cut -d"|" -f2`
+dockpass=`grep dockerpassword stackato.conf | cut -d"|" -f2`
+
+gituser=`grep gituser stackato.conf | cut -d"|" -f2`
+gitpass=`grep gitpass stackato.conf | cut -d"|" -f2`
 }
 
 createsetupFile(){
@@ -161,7 +173,42 @@ hcp update-user sax -r=admin
 hcp update-user sax -r=publisher
 }
 
+installServices(){
+ echo "starting installation of HCF / HCE / Console"
+ echo ""
+ cp hcf_template.json hcf_input.json
+ cp hce_template.json hce_input.json
+ 
+ sed -i 's/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domain\"/g' hcf_input.json
+ sed -i 's/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$hceDockerusername\"/g' hce_input.json
+ sed -i 's/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$hcedockerpassword\"/g' hce_input.json
 
+ cd ~
+ logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
+ hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+ hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
+ echo "HCP url: hcp_url  "
+
+ ./hcp api $hcp_url
+ ./hcp login admin -p "$hcp_login"
+
+  echo "Starting HCF installation ...."
+  echo "hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json"
+#  ./hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json
+  
+  sleep 600
+  
+  echo "Starting HCE installation ...."
+  echo "hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json"
+#  ./hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json
+ 
+  sleep 600
+  echo "Starting Console installation ...."
+  echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails"
+#  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails
+ 
+
+}
 installHCE(){
 echo "Installation of HCE .... " 
 echo "-------------------------"
