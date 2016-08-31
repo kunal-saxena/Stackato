@@ -13,6 +13,7 @@ ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
          cd Stackato
          chmod 700 installStackato.sh
          #Update Stackato.config file
+         vi stackato.conf
          ./installStackato.sh
         
      #############################################  
