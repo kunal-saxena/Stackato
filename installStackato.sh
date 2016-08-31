@@ -42,7 +42,7 @@ gituser=`grep gituser stackato.conf | cut -d"|" -f2`
 gitpass=`grep gitpass stackato.conf | cut -d"|" -f2`
 
 hcfversion=`grep hcfversion stackato.conf | cut -d"|" -f2`
-hceversion=`grep hcevesion stackato.conf | cut -d"|" -f2`
+hceversion=`grep hceversion stackato.conf | cut -d"|" -f2`
 consoleversion=`grep consoleversion stackato.conf | cut -d"|" -f2`
 }
 
