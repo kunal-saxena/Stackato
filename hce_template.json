@@ -3,7 +3,7 @@
   "description": "HCE",
   "parameters": [
     {
-      "name": "hce-admin-user-password", "value": "abcd"
+      "name": "hce-admin-user-password", "value": "hpcsqa50"
     },
     {
       "name": "HCE_DOCKER_USERNAME", "value": "abcd"
