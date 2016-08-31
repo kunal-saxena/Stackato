@@ -186,23 +186,15 @@ hcp update-user sax -r=publisher
 installServices(){
  echo "starting installation of HCF / HCE / Console"
  echo ""
- echo " $domainname"
- echo "$dockuser"
- echo "$dockpass"
- echo "$gituser"
- echo "$gitpass"
- echo "$hcfversion"
- echo "$hceversion"
- echo "$consoleversion" 
  
- cp hcf_template.json hcf_input.json
- cp hce_template.json hce_input.json
+ cp hcf_template.json ~/hcf_input.json
+ cp hce_template.json ~/hce_input.json
  
+ cd ~
  sed -i "s/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domainname\"/g" hcf_input.json
  sed -i "s/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$dockuser\"/g" hce_input.json
  sed -i "s/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$dockpass\"/g" hce_input.json
 
- cd ~
  logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
  hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
  hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
@@ -213,21 +205,21 @@ installServices(){
 
   echo "Starting HCF installation ...."
   echo "hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json"
-#  ./hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json
+  ./hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json
   
   sleep 6
   
   echo "Starting HCE installation ...."
   echo "hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json"
-#  ./hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json
+  ./hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json
  
   sleep 6
   echo "Starting Console installation ...."
   echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails"
-#  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails
+  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails
+ }
  
-
-}
+ 
 installHCE(){
 echo "Installation of HCE .... " 
 echo "-------------------------"
