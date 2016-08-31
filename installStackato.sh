@@ -198,9 +198,9 @@ installServices(){
  cp hcf_template.json hcf_input.json
  cp hce_template.json hce_input.json
  
- sed -i 's/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domainname\"/g' hcf_input.json
- sed -i 's/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$dockuser\"/g' hce_input.json
- sed -i 's/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$dockpass\"/g' hce_input.json
+ sed -i "s/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domainname\"/g" hcf_input.json
+ sed -i "s/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$dockuser\"/g" hce_input.json
+ sed -i "s/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$dockpass\"/g" hce_input.json
 
  cd ~
  logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
