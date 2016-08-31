@@ -3,7 +3,7 @@
   "description": "HCF Test Cluster",
   "parameters": [
     {
-      "name": "cluster-admin-password", "value": "abcd"
+      "name": "cluster-admin-password", "value": "hpcsqa50"
     },
     {
       "name": "DOMAIN", "value": "abcd"
