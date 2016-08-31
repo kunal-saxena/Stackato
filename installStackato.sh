@@ -18,6 +18,9 @@ dockuser=""
 dockpass=""
 gituser=""
 gitpass=""
+hcfversion=""
+hcevesion=""
+consoleversion=""
 
 getvariables(){
 HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
@@ -37,6 +40,10 @@ dockpass=`grep dockerpassword stackato.conf | cut -d"|" -f2`
 
 gituser=`grep gituser stackato.conf | cut -d"|" -f2`
 gitpass=`grep gitpass stackato.conf | cut -d"|" -f2`
+
+hcfversion=`grep hcfversion stackato.conf | cut -d"|" -f2`
+hcevesion=`grep hcevesion stackato.conf | cut -d"|" -f2`
+consoleversion=`grep consoleversion stackato.conf | cut -d"|" -f2`
 }
 
 createsetupFile(){
