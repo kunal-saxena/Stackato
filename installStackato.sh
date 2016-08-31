@@ -193,7 +193,7 @@ installServices(){
  echo "$gitpass"
  echo "$hcfversion"
  echo "$hceversion"
- echo "$consoleversion
+ echo "$consoleversion" 
  
  cp hcf_template.json hcf_input.json
  cp hce_template.json hce_input.json
