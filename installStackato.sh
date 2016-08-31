@@ -404,8 +404,8 @@ echo "Select Option: "
 echo "    1. Install HCP - scratch "
 echo "    2. Install HCP "
 echo "    3. Get Nodes IP"
-echo "    4. Install All Services  "
-echo "    5. Install HSM "
+echo "    4. Install HSM "
+echo "    5. Install All Services  "
 echo "    6. Install HCE "
 echo "    7. Install HCF "
 echo "    8. Install Console "
@@ -428,10 +428,10 @@ if [ -n $input ]; then
                 getNodes
         fi
          if [ "$input" = "4" ]; then
-                installServices
+                installHSM
         fi
         if [ "$input" = "5" ]; then
-                installHSM
+                installServices
         fi
         if [ "$input" = "6" ]; then
                 installHCE
