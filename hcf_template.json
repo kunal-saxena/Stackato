@@ -1,0 +1,19 @@
+{
+  "instance_id": "dev-hcf",
+  "description": "HCF Test Cluster",
+  "parameters": [
+    {
+      "name": "cluster-admin-password", "value": "abcd"
+    },
+    {
+      "name": "DOMAIN", "value": "abcd"
+    }
+  ],
+  "scaling": [
+    {
+      "component": "diego-cell",
+      "min_instances": 1,
+      "max_instances": 1
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "instance_id": "helion-code-engine",
+  "description": "HCE",
+  "parameters": [
+    {
+      "name": "hce-admin-user-password", "value": "abcd"
+    },
+    {
+      "name": "HCE_DOCKER_USERNAME", "value": "abcd"
+    },
+    {
+      "name": "HCE_DOCKER_PASSWORD", "value": "abcd"
+    }
+  ]
+}
