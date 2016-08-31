@@ -92,7 +92,10 @@ else
         wget $linkHSM
 fi
 echo " "
-echo "Download of HCP Bootstrap, HCP CLI and HSM is completed. "
+echo "Downloading CF CLI"
+curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx 
+
+echo "Download of HCP Bootstrap, HCP CLI , CF and HSM is completed. "
 }
 
 installHCP(){
