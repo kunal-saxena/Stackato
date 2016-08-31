@@ -136,12 +136,12 @@ tar -xvf $fileHCP_tar
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
-echo "echo \" hcp api $hcp_url \" " >> ~/setupFile
+echo "echo \"Command: hcp api $hcp_url \" " >> ~/setupFile
 echo "hcp api $hcp_url" >> ~/setupFile
 hcp api $hcp_url
 hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
-echo "echo \"hcp login admin -p \'$hcp_login\' " >> ~/setupFile
-echo "hcp login admin -p \'$hcp_login\' " >> ~/setupFile
+echo "echo \"Command: hcp login admin -p '$hcp_login' " >> ~/setupFile
+echo "hcp login admin -p '$hcp_login' " >> ~/setupFile
 hcp login admin -p "$hcp_login"
 
 gunzip $fileHSM
@@ -154,6 +154,8 @@ echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
 
+echo "echo \"Command: hsm api $hsm_url\"  " >> ~/setupFile
+echo "hsm api $hsm_url" >> ~/setupFile
 hsm api $hsm_url
 
 echo " " >> ~/setupFile
@@ -166,11 +168,10 @@ sed 's/"skip-ssl-validation": false/"skip-ssl-validation": true/g' .hsm/config.j
 cp hsm_config.json .hsm/config.json
 mv hsm_config.json ~/LOGs/
 
+echo "echo \"Command: hsm login -u admin -p '$hcp_login' " >> ~/setupFile
+echo "hsm login -u admin -p '$hcp_login' " >> ~/setupFile
 hsm login -u admin -p "$hcp_login"
-echo "echo \"hsm api $hsm_url\"  " >> ~/setupFile
-echo "hsm api $hsm_url" >> ~/setupFile
-echo "echo \" hsm login -u admin -p \'$hcp_login\' " >> ~/setupFile
-echo "hsm login -u admin -p \'$hcp_login\' " >> ~/setupFile
+
 sleep 5
 hsm update
 hsm version
