@@ -44,7 +44,7 @@ cd ~
 touch setupFile
 chmod 700 setupFile
 echo "export PATH=$PATH:/home/ubuntu" > setupFile
-echo "github,https://github.com,kunal-saxena,login" > gitdetails
+echo "github,https://github.com,$gituser,$gitpass" > gitdetails
 mkdir tar_ball
 echo "exporting setup variables"
 
@@ -196,13 +196,13 @@ installServices(){
   echo "hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json"
 #  ./hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json
   
-  sleep 600
+  sleep 6
   
   echo "Starting HCE installation ...."
   echo "hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json"
 #  ./hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json
  
-  sleep 600
+  sleep 6
   echo "Starting Console installation ...."
   echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails"
 #  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails
@@ -391,13 +391,13 @@ echo ""
 echo "Select Option: "
 echo "    1. Install HCP - scratch "
 echo "    2. Install HCP "
-echo "    3. Attach HCE endpoint"
-echo "    4. Download HCP, HSM  "
+echo "    3. Get Nodes IP"
+echo "    4. Install All Services  "
 echo "    5. Install HSM "
 echo "    6. Install HCE "
 echo "    7. Install HCF "
 echo "    8. Install Console "
-echo "    9. Get Nodes IP"
+echo "    9. Attach HCE endpoint"
 echo -n "    E. Exit   : (1/2 or E) : "
 
 read input
@@ -413,10 +413,10 @@ if [ -n $input ]; then
                 installHCP
         fi
         if [ "$input" = "3" ]; then
-                attachHCE
+                getNodes
         fi
          if [ "$input" = "4" ]; then
-                download
+                installServices
         fi
         if [ "$input" = "5" ]; then
                 installHSM
@@ -431,7 +431,7 @@ if [ -n $input ]; then
                 installConsole
         fi
         if [ "$input" = "9" ]; then
-                getNodes
+                attachHCE
         fi        
         if [ "$input" = "E" ]; then
                 exit
