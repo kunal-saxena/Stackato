@@ -12,7 +12,7 @@ ubuntu@ip-10-0-0-55:~/Stackato$ ./installStackato.sh
          git clone https://github.com/kunal-saxena/Stackato.git
          cd Stackato
          chmod 700 installStackato.sh
-         #Update Stackato.config file
+         #Update Stackato.config file for github ad dockerhub credentials 
          vi stackato.conf
          ./installStackato.sh
         
