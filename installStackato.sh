@@ -21,6 +21,8 @@ gitpass=""
 hcfversion=""
 hceversion=""
 consoleversion=""
+clientID=""
+clientSecret=""
 
 getvariables(){
 HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
@@ -35,11 +37,14 @@ fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 
 domainname=`grep domain stackato.conf | cut -d"|" -f2`
+
 dockuser=`grep dockeruser stackato.conf | cut -d"|" -f2`
 dockpass=`grep dockerpassword stackato.conf | cut -d"|" -f2`
-
 gituser=`grep gituser stackato.conf | cut -d"|" -f2`
 gitpass=`grep gitpass stackato.conf | cut -d"|" -f2`
+
+clientID=`grep clientID stackato.conf | cut -d"|" -f2`
+clientSecret=`grep clientSecret stackato.conf | cut -d"|" -f2`
 
 hcfversion=`grep hcfversion stackato.conf | cut -d"|" -f2`
 hceversion=`grep hceversion stackato.conf | cut -d"|" -f2`
@@ -51,7 +56,7 @@ cd ~
 touch setupFile
 chmod 700 setupFile
 echo "export PATH=$PATH:/home/ubuntu" > setupFile
-echo "github,https://github.com,$gituser,$gitpass" > gitdetails
+echo "github,https://github.com,$clientID,$clientSecret" > consolelogin
 mkdir tar_ball
 echo "exporting setup variables"
 
@@ -216,8 +221,8 @@ installServices(){
  
   sleep 6
   echo "Starting Console installation ...."
-  echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails"
-  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < gitdetails
+  echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < consolelogin"
+  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < consolelogin
  }
  
  
@@ -235,11 +240,14 @@ logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
 echo "HCP url: hcp_url  "
+ cp hce_template.json ~/hce_input.json
+ sed -i "s/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$dockuser\"/g" hce_input.json
+ sed -i "s/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$dockpass\"/g" hce_input.json
 
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
-echo "hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json"
-./hsm create-instance hpe-catalog.hpe.hce -i hce_instance.json
+  echo "hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json"
+  ./hsm create-instance hpe-catalog.hpe.hce $hceversion -i hce_input.json
 }
 
 installHCF(){
@@ -256,11 +264,12 @@ logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
 hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
 echo "HCP url: hcp_url  "
-
+cp hcf_template.json ~/hcf_input.json
+sed -i "s/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domainname\"/g" hcf_input.json 
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
-echo "hsm create-instance hpe-catalog.hpe.hcf 4.0.0 0.16.11-0.g60bd33d.master -i hcf_instance.json"
-./hsm create-instance hpe-catalog.hpe.hcf 4.0.0 0.16.11-0.g60bd33d.master -i hcf_instance.json
+  echo "hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json"
+  ./hsm create-instance hpe-catalog.hpe.hcf $hcfversion -i hcf_input.json
 }
 
 installConsole(){
@@ -276,8 +285,8 @@ echo "HCP url: hcp_url  "
 ./hcp api $hcp_url
 ./hcp login admin -p "$hcp_login"
 
-echo "hsm create-instance hpe-catalog.hpe.hsc 4.0 0.0.307 -s < gitdetails"
-./hsm create-instance hpe-catalog.hpe.hsc 4.0 0.0.307 -s < gitdetails
+  echo "hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < consolelogin"
+  ./hsm create-instance hpe-catalog.hpe.hsc $consoleversion -s < consolelogin
 }
 
 attachHCE(){
