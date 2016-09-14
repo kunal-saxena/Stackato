@@ -8,7 +8,7 @@
 HCPCLI=" "
 fileHCPCheck=" "
 fileHCP=" "
-linkHCP=" "
+linkBootstrap=" "
 fileHSM=" "
 linkHSM=" "
 fileHCE=" "
@@ -28,8 +28,8 @@ getvariables(){
 HCPCLI=`grep HCPCLI stackato.conf | cut -d"|" -f2`
 HCPCLIName=` grep HCPCLI stackato.conf | cut -d"|" -f2 | cut -d"/" -f5`
 
-linkHCP=`grep linkHCP stackato.conf | cut -d"|" -f2`
-fileHCPCheck=`grep linkHCP stackato.conf | cut -d"|" -f2 | cut -d"/" -f5 | sed 's/%2B/+/g'`
+linkBootstrap=`grep linkBootstrap stackato.conf | cut -d"|" -f2`
+fileHCPCheck=`grep linkBootstrap stackato.conf | cut -d"|" -f2 | cut -d"/" -f5 | sed 's/%2B/+/g'`
 
 linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
 fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
@@ -78,7 +78,7 @@ if [ -f "/home/ubuntu/$fileHCPCheck" ]
 then
         echo "File $fileHCPCheck exist "
 else
-        wget $linkHCP
+        wget $linkBootstrap
 fi
 
 sleep 2
