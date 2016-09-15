@@ -1,0 +1,9 @@
+{
+  "instance_id": "helion-console",
+  "description": "CONSOLE",
+  "parameters": [
+    {
+      "name": "VCS_CLIENTS", "value": "abcd"
+    }
+  ]
+}
