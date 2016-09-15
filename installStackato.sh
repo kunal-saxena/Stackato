@@ -32,7 +32,7 @@ linkBootstrap=`grep linkBootstrap stackato.conf | cut -d"|" -f2`
 fileHCPCheck=`grep linkBootstrap stackato.conf | cut -d"|" -f2 | cut -d"/" -f5 | sed 's/%2B/+/g'`
 
 linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
-fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
+fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f10`
 
 fileHCE=`grep fileHCE stackato.conf | cut -d"|" -f2`
 
