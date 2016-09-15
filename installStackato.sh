@@ -134,7 +134,7 @@ cd ~
 export PATH=$PATH:/home/ubuntu
 mkdir LOGs
 gunzip $HCPCLIName
-echo $HCPCLIName | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
+echo $HCPCLIName | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 
