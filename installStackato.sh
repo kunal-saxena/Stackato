@@ -134,7 +134,7 @@ cd ~
 export PATH=$PATH:/home/ubuntu
 mkdir LOGs
 gunzip $HCPCLIName
-echo $HCPCLIName | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_2
+echo $HCPCLIName | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_2
 fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 
@@ -150,7 +150,7 @@ echo "hcp login admin -p '$hcp_login' " >> ~/setupFile
 hcp login admin -p "$hcp_login"
 
 gunzip $fileHSM
-echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
+echo $fileHSM | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
