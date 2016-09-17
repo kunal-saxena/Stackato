@@ -7,13 +7,16 @@
     },
     {
       "name": "DOMAIN", "value": "abcd"
+    },
+    {
+      "name": "SKIP_CERT_VERIFY_INTERNAL", "value": "true"
     }
   ],
   "scaling": [
     {
       "component": "diego-cell",
       "min_instances": 1,
-      "max_instances": 1
+      "max_instances": 65535
     }
   ]
 }
