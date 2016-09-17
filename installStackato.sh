@@ -144,12 +144,12 @@ fileHCP_tar=`cat ~/LOGs/fileHSM_2`
 tar -xvf $fileHCP_tar
 
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
-hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
+hcp_url=`grep "HCP:" $logfileName |  cut -d":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
 echo "echo \"Command: hcp api $hcp_url \" " >> ~/setupFile
 echo "hcp api $hcp_url" >> ~/setupFile
 hcp api $hcp_url
-hcp_login=`grep "Admin credentials" $logfileName |  cut -d ":" -f2 | awk '{print $3}'`
+hcp_login=`grep "Admin username" $logfileName | cut -d"/" -f3 | awk '{print $1}'`
 echo "echo \"Command: hcp login admin -p '$hcp_login' " >> ~/setupFile
 echo "hcp login admin -p '$hcp_login' " >> ~/setupFile
 hcp login admin -p "$hcp_login"
@@ -158,8 +158,8 @@ gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
-logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
-hsm_url=`tail -10 $logfileName  | grep "Service Manager Location" | cut -d ":" -f2,3,4 | awk '{print $1}'`
+
+hsm_url=`grep "HCP:" $logfileName |  cut -d":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
