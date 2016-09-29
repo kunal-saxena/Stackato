@@ -159,7 +159,7 @@ echo $fileHSM | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
 
-hsm_url=`grep "HCP:" $logfileName |  cut -d":" -f2,3,4 | awk '{print $1}'`
+hsm_url=`grep "HSM:" $logfileName |  cut -d":" -f2,3,4 | awk '{print $1}'`
 echo "HSM url: $hsm_url  "
 echo "Waiting for 10 sec before attaching end-point"
 sleep 10
