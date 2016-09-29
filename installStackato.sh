@@ -150,9 +150,9 @@ echo "echo \"Command: hcp api $hcp_url \" " >> ~/setupFile
 echo "hcp api $hcp_url" >> ~/setupFile
 hcp api $hcp_url
 hcp_login=`grep "Admin username" $logfileName | cut -d"/" -f3 | awk '{print $1}'`
-echo "echo \"Command: hcp login admin -p '$hcp_login' " >> ~/setupFile
-echo "hcp login admin -p '$hcp_login' " >> ~/setupFile
-hcp login admin -p "$hcp_login"
+echo "echo \"Command: hcp login -u admin -p '$hcp_login' " >> ~/setupFile
+echo "hcp login -u admin -p '$hcp_login' " >> ~/setupFile
+hcp login -u admin -p "$hcp_login"
 
 gunzip $fileHSM
 echo $fileHSM | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_1
