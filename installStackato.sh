@@ -105,6 +105,19 @@ then
 else
         wget $linkHSM
 fi
+
+sleep 2
+
+echo " "
+echo "Downloading HCE "
+hcecli_tarname=`echo $fileHCE | cut -d"." -f1,2,3,4`
+if [ -f "/home/ubuntu/$hcecli_tarname" ] || [ -f "/home/ubuntu/$fileHCE" ]
+then
+        echo "File $hsmcli_tarname exist "
+else
+        wget $linkHCE
+fi
+
 echo " "
 echo "Downloading CF CLI"
 if [ -f "/home/ubuntu/cf" ]
