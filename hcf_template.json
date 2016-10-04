@@ -1,5 +1,5 @@
 {
-  "instance_id": "helion-cloud-foundry",
+  "instance_id": "helion-cloudfoundry",
   "description": "HCF Test Cluster",
   "parameters": [
     {
