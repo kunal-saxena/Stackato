@@ -209,7 +209,7 @@ installServices(){
  cd ~
  sed -i "s/\"DOMAIN\", \"value\": \"abcd\"/\"DOMAIN\", \"value\": \"$domainname\"/g" hcf_input.json
  sed -i "s/\"HCE_DOCKER_USERNAME\", \"value\": \"abcd\"/\"HCE_DOCKER_USERNAME\", \"value\": \"$dockuser\"/g" hce_input.json
- sed -i "s/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"HCE_DOCKER_PASSWORD\", \"value\": \"$dockpass\"/g" hce_input.json
+ sed -i "s/\"HCE_DOCKER_PASSWORD\", \"value\": \"abcd\"/\"hce-docker-password\", \"value\": \"$dockpass\"/g" hce_input.json
 
  logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
  hcp_url=`tail -10 $logfileName  | grep "HCP Service Location" | head -1 | cut -d ":" -f2,3,4 | awk '{print $1}'`
