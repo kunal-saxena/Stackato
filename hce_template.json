@@ -1,15 +1,9 @@
 {
-  "instance_id": "helion-code-engine",
+  "instance_id": "helion-codeengine",
   "description": "HCE",
   "parameters": [
     {
       "name": "hce-admin-user-password", "value": "hpcsqa50"
-    },
-    {
-      "name": "HCE_DOCKER_USERNAME", "value": "abcd"
-    },
-    {
-      "name": "hce-docker-password", "value": "abcd"
     }
   ]
 }
