@@ -35,7 +35,7 @@ fileHCPCheck=`grep linkBootstrap stackato.conf | cut -d"|" -f2 | cut -d"/" -f5 |
 linkHSM=`grep linkHSM stackato.conf | cut -d"|" -f2`
 fileHSM=`grep linkHSM stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
 
-linkHCE=`grep linkHCE stackato.conf | cut -d"|" -f2
+linkHCE=`grep linkHCE stackato.conf | cut -d"|" -f2`
 fileHCE=`grep linkHCE stackato.conf | cut -d"|" -f2 | cut -d"/" -f9`
 
 domainname=`grep domain stackato.conf | cut -d"|" -f2`
