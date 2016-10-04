@@ -170,7 +170,7 @@ echo "hcp login -u admin -p '$hcp_login' " >> ~/setupFile
 hcp login -u admin -p "$hcp_login"
 
 gunzip $fileHSM
-echo $fileHSM | cut -d"."  -f 1,2 > ~/LOGs/fileHSM_1
+echo $fileHSM | cut -d"."  -f 1,2,3,4 > ~/LOGs/fileHSM_1
 fileHSM_tar=`cat ~/LOGs/fileHSM_1`
 tar -xvf $fileHSM_tar
 
