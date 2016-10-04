@@ -9,7 +9,7 @@
       "name": "HCE_DOCKER_USERNAME", "value": "abcd"
     },
     {
-      "name": "HCE_DOCKER_PASSWORD", "value": "abcd"
+      "name": "hce-docker-password", "value": "abcd"
     }
   ]
 }
