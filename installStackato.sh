@@ -161,9 +161,9 @@ tar -xvf $fileHCP_tar
 logfileName=`ls -ltr bootstrap-* | tail -1 | awk '{print $9 }'`
 hcp_url=`grep "HCP:" $logfileName |  cut -d":" -f2,3,4 | awk '{print $1}'`
 echo "HCP url: $hcp_url  "
-echo "echo \"Command: hcp api $hcp_url \" " >> ~/setupFile
-echo "hcp api $hcp_url" >> ~/setupFile
-hcp api $hcp_url
+echo "echo \"Command: hcp api --skip-ssl-validation $hcp_url \" " >> ~/setupFile
+echo "hcp api --skip-ssl-validation $hcp_url" >> ~/setupFile
+hcp api --skip-ssl-validation $hcp_url
 hcp_login=`grep "Admin username" $logfileName | cut -d"/" -f3 | awk '{print $1}'`
 echo "echo \"Command: hcp login -u admin -p '$hcp_login' " >> ~/setupFile
 echo "hcp login -u admin -p '$hcp_login' " >> ~/setupFile
