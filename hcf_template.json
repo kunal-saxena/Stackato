@@ -7,9 +7,6 @@
     },
     {
       "name": "DOMAIN", "value": "abcd"
-    },
-    {
-      "name": "SKIP_CERT_VERIFY_INTERNAL", "value": "true"
     }
   ],
   "scaling": [
